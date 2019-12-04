@@ -69,6 +69,7 @@ for(i in 1:14){
   library(ggplot2)
   head(new.df)
   
+  ##ggplot with 2 geoms, a title and adjusted theme
   graph= ggplot(data=new.df, aes(x= Concentration, y= Colony_count)) + 
     geom_point(colour=new_color) +
     geom_smooth(color=new_color) +
@@ -98,7 +99,7 @@ install.packages("osmdata")
 library(ggmap)
 library(osmdata)
 
-bb=c(left = min(e$lon)-1.0, bottom = min(e$lat)-1.0, ##the + and minus 0.2 is so that our points are not on the edge of the map.
+bb=c(left = min(e$lon)-1.0, bottom = min(e$lat)-1.0, 
      right = max(e$lon)+1.0, top = max(e$lat)+1.0)
 bb
 data.map = get_stamenmap (bbox =bb, zoom =4, 
@@ -159,7 +160,7 @@ graph3
 `%percent%` <- function(x,y) 
 {
   if (y != 0){
-    percentage <- c(percentage, ((Mean[2]/y) * x)) # change number in Mean[] to get different percentage
+    percentage <- c(percentage, ((Mean[3]/y) * x)) # change number in Mean[] to get different percentage
     print(percentage)
   }
 }
