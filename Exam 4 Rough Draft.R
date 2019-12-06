@@ -1,4 +1,13 @@
 ####Exam 4 Rough Draft.
+install.packages(c("maps", "mapdata"))
+library(tidyverse)
+install.packages('ggmap')
+install.packages('osmdata')
+library(ggmap)
+library(osmdata)
+library(maps)
+library(mapdata)
+library(stringr)
 
 load(file="sec_stad.Rdata")
 ss=sec_stad
@@ -82,20 +91,10 @@ heat_map_fs_2= ggplot(stats, aes(x= variable, y =stat, color =Team)) +
   scale_y_log10()
 heat_map_fs_2
 
-##section 5 : Mapping
-install.packages(c("maps", "mapdata"))
-library(tidyverse)
-install.packages('ggmap')
-install.packages('osmdata')
-library(ggmap)
-library(osmdata)
-library(maps)
-library(mapdata)
-library(stringr)
 
-##create directory for plots
-getwd()
-suppressWarnings(dir.create("/Users/salessajee/Desktop/R Local/Project/Exam4_plots"))
+
+
+##section 5 : Mapping
 
 ###Generate a ‘toner’ map figure showing the central and southeastern United States. (5 points)
 bbox = c(left = min(ss$lng)-1, bottom = min(ss$lat)-1, 
@@ -123,7 +122,7 @@ ggsave("us_map_wStadium_Capacity.png")
 
 
 ##Section 6: Analysis
-##In which state is the largest capacity stadium located? (2 points)
+##In which state is the largest capacity stadium located? TN!!!!!
 cap=max(ss$Capacity)
 cap
 cap_1=ss[order(-ss$Capacity),]
@@ -133,10 +132,10 @@ State_with_largest_capacity
 
 
 ##What is the mean and standard deviation capacity of the stadiums in each state? (Hint: you may need to use detach(package:plyr)
-
 library(plyr)
-mean_cap = ss %>%  group_by(State) %>% plyr::summarize (capMean = mean(Capacity),capSD=sd(Capacity))
-mean_cap
+detach(package:plyr)
+mean_cap_and_SD = ss %>%  group_by(State) %>% summarize (capMean = mean(Capacity),capSD=sd(Capacity))
+mean_cap_and_SD
 
 
 
