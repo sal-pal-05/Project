@@ -94,8 +94,8 @@ library(mapdata)
 library(stringr)
 
 ##create directory for plots
-getwd
-suppressWarnings(dir.create("/Users/salessajee/Desktop/R Local/Project"))
+getwd()
+suppressWarnings(dir.create("/Users/salessajee/Desktop/R Local/Project/Exam4_plots"))
 
 ###Generate a ‘toner’ map figure showing the central and southeastern United States. (5 points)
 bbox = c(left = min(ss$lng)-1, bottom = min(ss$lat)-1, 
@@ -103,14 +103,14 @@ bbox = c(left = min(ss$lng)-1, bottom = min(ss$lat)-1,
 map = get_stamenmap(bbox = bbox,
                     zoom = 5, maptype = 'toner')
 ggmap(map)
-
+ggsave("us_map.png")
 #####Generate a second ‘toner’ map figure showing the central and southeastern United States, plus the geographic location of all the SEC stadiums (5 points).
 bbox2 = c(left = min(ss$lng), bottom = min(ss$lat), 
          right = max(ss$lng), top = max(ss$lat))
 map2 = get_stamenmap(bbox = bbox,
                     zoom = 6, maptype = 'toner')
 ggmap(map2) + geom_point(data = ss, aes(x = lng, y = lat))
-
+ggsave("us_map_wStadium.png")
 
 ##Generate a third ‘toner’ map figure showing the geographic location of all the SEC stadiums, this time represent these locations using the following aesthetics:
 
@@ -118,10 +118,8 @@ map3=ggmap(map2)+
   geom_point(data = ss, aes(x = lng, y = lat, color=Capacity, size=Capacity))
 
 map3
+ggsave("us_map_wStadium_Capacity.png")
 
-
-
-ggsave(".png")
 
 
 ##Section 6: Analysis
@@ -137,7 +135,7 @@ State_with_largest_capacity
 ##What is the mean and standard deviation capacity of the stadiums in each state? (Hint: you may need to use detach(package:plyr)
 
 library(plyr)
-mean_cap = ss %>%  group_by(State) %>% summarize (capMean = mean(Capacity),capSD=sd(Capacity))
+mean_cap = ss %>%  group_by(State) %>% plyr::summarize (capMean = mean(Capacity),capSD=sd(Capacity))
 mean_cap
 
 
